@@ -1,0 +1,10 @@
+# config/validator/validation.yaml
+App\Entity\Task:
+    properties:
+        user:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+            - Email:
+                message: The email "{{ value }}" is not a valid email.
+                checkMX: true

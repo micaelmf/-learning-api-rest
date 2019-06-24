@@ -1,0 +1,5 @@
+# config/routes.yaml
+
+app_user_new:
+    path: /user/new
+    controller: App\Controller\UserController::new
