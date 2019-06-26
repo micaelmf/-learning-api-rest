@@ -20,8 +20,30 @@ app_teste_new:
 #
 vet_index:
     path: /veterinary
-    controller: App\Controller\Veterinary::index
+    controller: App\Controller\VeterinaryController::index
 
 vet_new:
     path: /veterinary/new
     controller: App\Controller\VeterinaryController::new
+
+# 
+# ROUTES OF CLINIC
+#
+clinic_index:
+    path: /clinic
+    controller: App\Controller\ClinicController::index
+
+clinic_new:
+    path: /clinic/new
+    controller: App\Controller\ClinicController::new
+
+# 
+# ROUTES OF PET
+#
+pet_index:
+    path: /pet
+    controller: App\Controller\PetController::index
+
+pet_new:
+    path: /pet/new
+    controller: App\Controller\PetController::new

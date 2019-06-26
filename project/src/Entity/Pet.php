@@ -27,7 +27,7 @@ class Pet
     private $dateBirth;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string")
      */
     private $weight;
 
@@ -42,8 +42,8 @@ class Pet
     private $breed;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Address")
-     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $owner;
 
@@ -76,12 +76,12 @@ class Pet
         return $this;
     }
 
-    public function getWeight(): ?float
+    public function getWeight(): ?String
     {
         return $this->weight;
     }
 
-    public function setWeight(float $weight): self
+    public function setWeight(string $weight): self
     {
         $this->weight = $weight;
 
@@ -112,12 +112,12 @@ class Pet
         return $this;
     }
 
-    public function getOwner(): ?string
+    public function getOwner(): ?User
     {
         return $this->owner;
     }
 
-    public function setOwner(string $owner): self
+    public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
 
