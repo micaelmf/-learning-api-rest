@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Address;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -27,8 +28,8 @@ class User
     private $email;
 
     /**
-     * @ManyToOne(targetEntity="Address")
-     * @JoinColumn(onDelete="CASCADE)
+     * @ORM\ManyToOne(targetEntity="Address", cascade = {"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      */
     protected $address;
 
@@ -61,12 +62,12 @@ class User
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getAddress(): ?Address
     {
         return $this->address;
     }
 
-    public function setAddress(Address $address): self
+    public function setAddress(Address $address = null): self
     {
         $this->address = $address;
 

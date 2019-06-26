@@ -3,3 +3,11 @@
 app_user_new:
     path: /user/new
     controller: App\Controller\UserController::new
+
+app_pet_new:
+    path: /pet/new
+    controller: App\Controller\PetController::new
+
+app_teste_new:
+    path: /teste/new
+    controller: App\Controller\TesteController::new
