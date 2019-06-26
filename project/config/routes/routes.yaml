@@ -1,5 +1,8 @@
 # config/routes.yaml
 
+#
+# ROUTES OF USER
+#
 app_user_new:
     path: /user/new
     controller: App\Controller\UserController::new
@@ -11,3 +14,14 @@ app_pet_new:
 app_teste_new:
     path: /teste/new
     controller: App\Controller\TesteController::new
+
+# 
+# ROUTES OF VETERINARY
+#
+vet_index:
+    path: /veterinary
+    controller: App\Controller\Veterinary::index
+
+vet_new:
+    path: /veterinary/new
+    controller: App\Controller\VeterinaryController::new

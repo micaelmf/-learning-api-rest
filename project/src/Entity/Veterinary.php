@@ -32,12 +32,6 @@ class Veterinary
      */
     private $address;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Clinic")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $clinic;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -75,18 +69,6 @@ class Veterinary
     public function setAddress(Address $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getClinic(): ?Clinic
-    {
-        return $this->clinic;
-    }
-
-    public function setClinic(?Clinic $clinic): self
-    {
-        $this->clinic = $clinic;
 
         return $this;
     }
