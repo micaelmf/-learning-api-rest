@@ -54,4 +54,15 @@ class PetController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    public function list()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $query = $entityManager->createQuery('SELECT pet FROM App\Entity\Pet pet');
+        $pets = $query->getResult();
+
+        return $this->render('pet/list-pet.html.twig', [
+            'pets' => $pets,
+        ]);
+    }
 }

@@ -46,4 +46,7 @@ pet_index:
 
 pet_new:
     path: /pet/new
-    controller: App\Controller\PetController::new
+
+pet_list:
+    path: /pet/list
+    controller: App\Controller\PetController::list

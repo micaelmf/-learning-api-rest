@@ -1,0 +1,22 @@
+{# templates/pet/list-pet.html.twig #}
+<h1>List of all <b>PETS</b></h1>
+<table style="width:100%">
+    <tr>
+        <th>Name</th>
+        <th>Breed</th> 
+        <th>Owner</th>
+        <th>Action</th>
+    </tr>
+    {% for pet in pets %}
+        <tr>
+            <td>{{pet.name}}</td>
+            <td>{{pet.breed}}</td> 
+            <td>{{pet.owner.userName}}</td>
+            <td>
+                Action1 - Action2 - Action 3
+            </td>
+        </tr>
+    {% else %}
+        <h4>Nada encontrado</h4>
+    {% endfor %}
+    </table>
