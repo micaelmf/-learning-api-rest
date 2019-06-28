@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Veterinary
      * @ORM\JoinColumn(nullable=false)
      */
     private $address;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Clinic")
+     */
+    private $clinic;
+
+    public function __construct()
+    {
+        $this->clinic = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,32 @@ class Veterinary
     public function setAddress(Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Clinic[]
+     */
+    public function getClinic(): Collection
+    {
+        return $this->clinic;
+    }
+
+    public function addClinic(Clinic $clinic): self
+    {
+        if (!$this->clinic->contains($clinic)) {
+            $this->clinic[] = $clinic;
+        }
+
+        return $this;
+    }
+
+    public function removeClinic(Clinic $clinic): self
+    {
+        if ($this->clinic->contains($clinic)) {
+            $this->clinic->removeElement($clinic);
+        }
 
         return $this;
     }
