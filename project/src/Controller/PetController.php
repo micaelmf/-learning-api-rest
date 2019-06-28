@@ -48,6 +48,10 @@ class PetController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($pet);
             $entityManager->flush();
+
+            return $this->redirectToRoute('pet_edit',[
+                'id' => $pet->getId()
+            ]);
         }
         
         return $this->render('pet/new-pet.html.twig', [
@@ -63,6 +67,41 @@ class PetController extends AbstractController
 
         return $this->render('pet/list-pet.html.twig', [
             'pets' => $pets,
+        ]);
+    }
+
+    public function edit(Request $request, Pet $pet)
+    {
+        $form = $this->createFormBuilder($pet)
+            ->add('name', TextType::class)
+            ->add('dateBirth', DateType::class, ['widget' => 'single_text'])
+            ->add('weight', TextType::class)
+            ->add('type', TextType::class)
+            ->add('breed', TextType::class)
+            ->add('owner', EntityType::class, [
+                // looks for choices from this entity
+                'class' => User::class,
+                // uses the User.username property as the visible option string
+                'choice_label' => 'userName',
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Confirm'])
+            ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pet = $form->getData();
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('pet_edit',[
+                'id' => $pet->getId()
+            ]);
+        }
+        
+        return $this->render('pet/new-pet.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

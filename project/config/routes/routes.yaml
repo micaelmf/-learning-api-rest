@@ -50,3 +50,7 @@ pet_new:
 pet_list:
     path: /pet/list
     controller: App\Controller\PetController::list
+
+pet_edit:
+    path: /pet/edit/{id}
+    controller: App\Controller\PetController::edit

@@ -13,7 +13,7 @@
             <td>{{pet.breed}}</td> 
             <td>{{pet.owner.userName}}</td>
             <td>
-                Action1 - Action2 - Action 3
+                <a href={{ path('pet_edit', {'id':pet.id}) }}>Edit</a>
             </td>
         </tr>
     {% else %}
