@@ -13,6 +13,7 @@
             <td>{{pet.breed}}</td> 
             <td>{{pet.owner.userName}}</td>
             <td>
+                <a href={{ path('pet_remove', {'id':pet.id}) }}>Delete</a>
                 <a href={{ path('pet_edit', {'id':pet.id}) }}>Edit</a>
             </td>
         </tr>

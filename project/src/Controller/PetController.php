@@ -104,4 +104,15 @@ class PetController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    public function remove(Request $request, Pet $pet)
+    {
+        $entityManager = $this->getDoctrine('App\Entity\Pet')->getManager();
+        $entityManager->remove($pet);
+        $entityManager->flush();
+        
+        return $this->render('pet/remove-pet.html.twig',[
+            'pet' => $pet,
+        ]);
+    }
 }

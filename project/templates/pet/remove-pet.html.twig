@@ -1,0 +1,12 @@
+{% if pet is null %}
+    <h1>Pet not found</h1>
+{% else %}
+    <h1>Pet removed with success!</h1>
+    <h4>Details</h4>
+    <p>Name: {{pet.name}}</p>
+    <p>Type: {{pet.type}}</p>
+    <p>Breed: {{pet.breed}}</p>
+    <p>Date Birth: {{pet.dateBirth|date("m/d/Y")}}</p>
+    <p>Owner: {{pet.owner.userName}}</p>
+    <p><a href="pet_list">Return list of Pets</a> | <a href="localhost:8000">Home</a></p>
+{% endif %}

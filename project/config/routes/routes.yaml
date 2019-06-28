@@ -54,3 +54,7 @@ pet_list:
 pet_edit:
     path: /pet/edit/{id}
     controller: App\Controller\PetController::edit
+
+pet_remove:
+    path: /pet/remove/{id}
+    controller: App\Controller\PetController::remove
