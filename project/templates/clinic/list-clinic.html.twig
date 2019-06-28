@@ -1,0 +1,25 @@
+{# templates/clinic/list-clinic.html.twig #}
+<h1>List of all <b>CLINICS</b></h1>
+<table style="width:100%">
+    <tr>
+        <th>Name</th>
+        <th>Street</th> 
+        <th>Number</th>
+        <th>City</th>
+        <th>Action</th>
+    </tr>
+    {% for clinic in clinics %}
+        <tr>
+            <td>{{clinic.name}}</td>
+            <td>{{clinic.address.street}}</td> 
+            <td>{{clinic.address.number}}</td>
+            <td>{{clinic.address.city}}</td>
+            <td>
+                <a href={{ path('clinic_remove', {'id':clinic.id}) }}>Remove</a>
+                <a href={{ path('clinic_edit', {'id':clinic.id}) }}>Edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <h4>Nada encontrado</h4>
+    {% endfor %}
+    </table>

@@ -36,10 +36,60 @@ class ClinicController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($clinic);
             $entityManager->flush();
+
+            return $this->redirectToRoute('clinic_edit',[
+                'id' => $clinic->getId()
+            ]);
         }
         
         return $this->render('clinic/new-clinic.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+    public function list()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $query = $entityManager->createQuery('SELECT clinic FROM App\Entity\Clinic clinic');
+        $clinic = $query->getResult();
+
+        return $this->render('clinic/list-clinic.html.twig', [
+            'clinics' => $clinic,
+        ]);
+    }
+
+    public function edit(Request $request, Clinic $clinic)
+    {
+        $form = $this->createForm(ClinicType::class, $clinic)
+            ->add('save', SubmitType::class, ['label' => 'Confirm']);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $clinic = $form->getData();
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('clinic_edit',[
+                'id' => $clinic->getId()
+            ]);
+        }
+        
+        return $this->render('clinic/edit-clinic.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function remove(Request $request, Clinic $clinic)
+    {
+        $entityManager = $this->getDoctrine('App\Entity\Clinic')->getManager();
+        $entityManager->remove($clinic);
+        $entityManager->flush();
+        
+        return $this->render('clinic/remove-clinic.html.twig',[
+            'clinic' => $clinic,
+        ]);
+    }
+
 }

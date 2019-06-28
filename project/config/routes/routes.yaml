@@ -37,6 +37,18 @@ clinic_new:
     path: /clinic/new
     controller: App\Controller\ClinicController::new
 
+clinic_list:
+    path: /clinic/list
+    controller: App\Controller\ClinicController::list
+
+clinic_edit:
+    path: /clinic/edit/{id}
+    controller: App\Controller\ClinicController::edit
+
+clinic_remove:
+    path: /clinic/remove/{id}
+    controller: App\Controller\ClinicController::remove
+
 # 
 # ROUTES OF PET
 #

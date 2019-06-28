@@ -1,0 +1,11 @@
+{% if clinic is null %}
+    <h1>Clinic not found</h1>
+{% else %}
+    <h1>Clinic removed with success!</h1>
+    <h4>Details</h4>
+    <p>Name: {{clinic.name}}</p>
+    <p>Type: {{clinic.address.street}}</p>
+    <p>Breed: {{clinic.address.number}}</p>
+    <p>Date Birth: {{clinic.address.city}}</p>
+    <p><a href="{{ path('clinic_list')}}"> Return list of Clinics</a> | <a href="localhost:8000">Home</a></p>
+{% endif %}
