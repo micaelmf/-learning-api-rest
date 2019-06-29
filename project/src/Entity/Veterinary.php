@@ -35,7 +35,7 @@ class Veterinary
     private $address;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Clinic")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Clinic", inversedBy="veterinaries")
      */
     private $clinic;
 
@@ -110,4 +110,6 @@ class Veterinary
 
         return $this;
     }
+
+    
 }

@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class VeterinaryType extends AbstractType
 {
@@ -21,7 +22,16 @@ class VeterinaryType extends AbstractType
         $builder->add('address', AddressType::class);
         $builder->add('clinic', EntityType::class, [
             'class' => Clinic::class,
-            'mapped' => false,
+            'mapped' => true,
+
+        // $builder->add('clinic', EntityType::class, [
+        //     'class' => Clinic::class,
+        //     'query_builder' => function (EntityRepository $er) {
+        //         return $er->createQueryBuilder('c')
+        //             ->orderBy('c.name', 'ASC');
+        //     },
+        //     'choice_label' => 'name',
+        
         ]);
     }
 
