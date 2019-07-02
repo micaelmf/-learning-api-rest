@@ -1,0 +1,11 @@
+{% if user is null %}
+    <h1>User not found</h1>
+{% else %}
+    <h1>User removed with success!</h1>
+    <h4>Details</h4>
+    <p>Name: {{user.userName}}</p>
+    <p>Type: {{user.address.street}}</p>
+    <p>Breed: {{user.address.number}}</p>
+    <p>Date Birth: {{user.address.city}}</p>
+    <p><a href="{{ path('clinic_index')}}"> Return index of Users</a> | <a href="localhost:8000">Home</a></p>
+{% endif %}
