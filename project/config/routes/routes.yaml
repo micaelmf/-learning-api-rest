@@ -26,6 +26,18 @@ vet_new:
     path: /veterinary/new
     controller: App\Controller\VeterinaryController::new
 
+vet_list: 
+    path: /veterinary/list
+    controller: App\Controller\VeterinaryController::list
+
+vet_edit:
+    path: /veterinary/edit/{id}
+    controller: App\Controller\VeterinaryController::edit
+
+vet_remove:
+    path: /veterinary/remove/{id}
+    controller: App\Controller\VeterinaryController::remove
+
 # 
 # ROUTES OF CLINIC
 #

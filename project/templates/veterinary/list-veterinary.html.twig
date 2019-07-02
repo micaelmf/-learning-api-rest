@@ -1,0 +1,21 @@
+{# templates/vet/list-vet.html.twig #}
+<h1>List of all <b>Veterinaries</b></h1>
+<table style="width:100%">
+    <tr>
+        <th>Name</th>
+        <th>CRMV</th> 
+        <th>Action</th>
+    </tr>
+    {% for vet in vets %}
+        <tr>
+            <td>{{vet.name}}</td>
+            <td>{{vet.crmv}}</td> 
+            <td>
+                <a href={{ path('vet_remove', {'id':vet.id}) }}>Delete</a>
+                <a href={{ path('vet_edit', {'id':vet.id}) }}>Edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <h4>Nada encontrado</h4>
+    {% endfor %}
+    </table>
