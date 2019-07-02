@@ -4,6 +4,10 @@
 # ROUTES OF HOME
 #
 
+home_index:
+    path: /
+    controller: App\Controller\HomeController::index
+
 app_teste_new:
     path: /teste/new
     controller: App\Controller\TesteController::new
@@ -11,9 +15,25 @@ app_teste_new:
 #
 # ROUTES OF USER
 #
+user_index:
+    path: /user
+    controller: App\Controller\UserController::index
+
 user_new:
     path: /user/new
     controller: App\Controller\UserController::new
+
+user_list: 
+    path: /user/list
+    controller: App\Controller\UserController::list
+
+user_edit:
+    path: /user/edit/{id}
+    controller: App\Controller\UserController::edit
+
+user_remove:
+    path: /user/remove/{id}
+    controller: App\Controller\UserController::remove
 
 # 
 # ROUTES OF VETERINARY

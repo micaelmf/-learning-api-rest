@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome to Home{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}
+        <h1>Welcome to Home</h1>
+        <ul>
+            <li><a href="{{ path('user_index')}}">Users</a></li>
+            <li><a href="{{ path('clinic_index')}}">Clinics</a></li>
+            <li><a href="{{ path('vet_index')}}">Veterinaries</a></li>
+            <li><a href="{{ path('pet_index')}}">Pets</a></li>
+        </ul>
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -2,16 +2,16 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Index Of Pets{% endblock %}</title>
+        <title>{% block title %}Index of Users{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block body %}
-        <h1>Index of Pets</h1>
+        <h1>Index of Users</h1>
         <ul>
             <li><a href="{{ path('home_index')}}">Home</a></li>
-            <li><a href="{{ path('pet_new')}}">New</a></li>
-            <li><a href="{{ path('pet_list')}}">List</a></li>
+            <li><a href="{{ path('user_new')}}">New</a></li>
+            <li><a href="{{ path('user_list')}}">List</a></li>
         </ul>
         {% endblock %}
         {% block javascripts %}{% endblock %}
