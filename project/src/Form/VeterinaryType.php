@@ -22,16 +22,7 @@ class VeterinaryType extends AbstractType
         $builder->add('address', AddressType::class);
         $builder->add('clinic', EntityType::class, [
             'class' => Clinic::class,
-            'mapped' => true,
-
-        // $builder->add('clinic', EntityType::class, [
-        //     'class' => Clinic::class,
-        //     'query_builder' => function (EntityRepository $er) {
-        //         return $er->createQueryBuilder('c')
-        //             ->orderBy('c.name', 'ASC');
-        //     },
-        //     'choice_label' => 'name',
-        
+            'multiple'  => true,
         ]);
     }
 
