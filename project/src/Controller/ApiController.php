@@ -92,8 +92,6 @@ class ApiController extends AbstractController
         $user->setEmail($request->get('email'));
         $user->setAddress($address);
 
-        $form = $this->createForm(UserType::class, $user);
-        
         if (!empty($user->getUserName())) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
