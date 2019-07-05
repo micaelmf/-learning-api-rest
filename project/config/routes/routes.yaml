@@ -105,7 +105,7 @@ pet_remove:
     controller: App\Controller\PetController::remove
 
 #
-# API ROUTES
+# API USER ROUTES
 #
 
 api_user_index:
@@ -145,6 +145,51 @@ api_user_edit:
 api_user_delete:
     path: /api/user/delete/{id}
     controller: App\Controller\ApiUserController::delete
+    defaults:
+        _format: json
+    methods: DELETE
+
+#
+# API CLINIC ROUTES
+#
+
+api_clinic_index:
+    path: /api/clinic
+    controller: App\Controller\ApiClinicController::index
+    defaults:
+        _format: json
+
+api_clinic_list:
+    path: /api/clinic/list
+    controller: App\Controller\ApiClinicController::clinicList
+    defaults:
+        _format: json
+    methods: GET
+
+api_clinic_show:
+    path: /api/clinic/{id}
+    controller: App\Controller\ApiClinicController::show
+    defaults:
+        _format: json
+    methods: GET
+
+api_clinic_new:
+    path: /api/clinic/new
+    controller: App\Controller\ApiClinicController:new
+    defaults:
+        _format: json
+    methods: POST
+
+api_clinic_edit:
+    path: /api/clinic/edit/{id}
+    controller: App\Controller\ApiClinicController::edit
+    defaults:
+        _format: json
+    methods: PUT
+
+api_clinic_delete:
+    path: /api/clinic/delete/{id}
+    controller: App\Controller\ApiClinicController::delete
     defaults:
         _format: json
     methods: DELETE
