@@ -17,14 +17,14 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiController extends AbstractController
+class ApiUserController extends AbstractController
 {
     public function index()
     {
         return new JsonResponse(['status' => 'ok']);
     }
 
-    public function userList()
+    public function list()
     {
         $users = $this->getDoctrine()
             ->getRepository('App\Entity\User')
@@ -39,7 +39,7 @@ class ApiController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function userId(User $id)
+    public function show(User $id)
     {
         $user = $this->getDoctrine()
             ->getRepository('App\Entity\User')
@@ -54,7 +54,7 @@ class ApiController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function userNew(Request $request)
+    public function new(Request $request)
     {
         $address = new Address();
         $address->setStreet($request->get('street'));
@@ -75,7 +75,7 @@ class ApiController extends AbstractController
         return new JsonResponse(['msg' => 'User created whit success!'], Response::HTTP_OK);
     }
     
-    public function userEdit(Request $request, $id){
+    public function edit(Request $request, $id){
         
         $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
         
@@ -102,7 +102,7 @@ class ApiController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function userDelete($id){
+    public function delete($id){
         $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
         
         if (empty($user)) {

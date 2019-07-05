@@ -108,43 +108,43 @@ pet_remove:
 # API ROUTES
 #
 
-api_index:
+api_user_index:
     path: /api/user
-    controller: App\Controller\ApiController::index
+    controller: App\Controller\ApiUserController::index
     defaults:
         _format: json
 
 api_user_list:
     path: /api/user/list
-    controller: App\Controller\ApiController::userList
+    controller: App\Controller\ApiUserController::userList
     defaults:
         _format: json
     methods: GET
 
-api_user_id:
+api_user_show:
     path: /api/user/{id}
-    controller: App\Controller\ApiController::userId
+    controller: App\Controller\ApiUserController::show
     defaults:
         _format: json
     methods: GET
 
 api_user_new:
     path: /api/user/new
-    controller: App\Controller\ApiController::userNew
+    controller: App\Controller\ApiUserController:new
     defaults:
         _format: json
     methods: POST
 
 api_user_edit:
     path: /api/user/edit/{id}
-    controller: App\Controller\ApiController::userEdit
+    controller: App\Controller\ApiUserController::edit
     defaults:
         _format: json
     methods: PUT
 
 api_user_delete:
     path: /api/user/delete/{id}
-    controller: App\Controller\ApiController::userDelete
+    controller: App\Controller\ApiUserController::delete
     defaults:
         _format: json
     methods: DELETE
