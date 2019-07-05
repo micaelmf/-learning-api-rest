@@ -67,31 +67,32 @@ class ApiController extends AbstractController
         $user->setAddress($address);
         
         $form = $this->createForm(UserType::class, $user);
-
+        
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-
+        
         return new JsonResponse(['msg' => 'User created whit success!'], Response::HTTP_OK);
     }
-
+    
     public function userEdit(Request $request, $id){
         
-        $dataFromBase = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
+        $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
         
-        if (empty($dataFromBase)) {
+        if (empty($user)) {
             return new JsonResponse(['msg' => 'User not found!'], Response::HTTP_NOT_FOUND);
         }
         
-        $address = new Address();
+        $address = $user->getAddress();
         $address->setStreet($request->get('street'));
         $address->setNumber($request->get('number'));
         $address->setCity($request->get('city'));
         
-        $user = new User();
         $user->setUserName($request->get('userName'));
         $user->setEmail($request->get('email'));
         $user->setAddress($address);
+
+        $form = $this->createForm(UserType::class, $user);
         
         if (!empty($user->getUserName())) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -104,15 +105,15 @@ class ApiController extends AbstractController
     }
 
     public function userDelete($id){
-        $dataFromBase = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
+        $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
         
-        if (empty($dataFromBase)) {
+        if (empty($user)) {
             return new JsonResponse(['msg' => 'User not found!'], Response::HTTP_NOT_FOUND);
         }
         
-        if (!empty($dataFromBase)) {
+        if (!empty($user)) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($dataFromBase);
+            $entityManager->remove($user);
             $entityManager->flush();
 
             return new JsonResponse(['msg' => 'User deleted whit success!'], Response::HTTP_OK);
