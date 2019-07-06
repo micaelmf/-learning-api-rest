@@ -1,48 +1,48 @@
 # config/validator/validation.yaml
-App\Entity\User:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
-    properties:
-        userName:
-            - NotBlank: ~
-        email:
-            - NotBlank: ~
-            - Email:
-                message: The email "{{ value }}" is not a valid email.
-                checkMX: true
-        address:
-            - NotBlank: ~
+# App\Entity\User:
+#     constraints:
+#         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+#     properties:
+#         userName:
+#             - NotBlank: ~
+#         email:
+#             - NotBlank: ~
+#             - Email:
+#                 message: The email "{{ value }}" is not a valid email.
+#                 checkMX: true
+#         address:
+#             - NotBlank: ~
 
-App\Entity\Pet:
-    properties:
-        name:
-            - NotBlank: ~
-        dateBirth:
-            - NotBlank: ~
-            - Date: ~
-        weight:
-            - NotBlank: ~
-            - Positive: ~
-                message: Weight should be a positive number .
-        type:
-            - NotBlank: ~
-        breed:
-            - NotBlank: ~
-        owner:
-            - NotBlank: ~
+# App\Entity\Pet:
+#     properties:
+#         name:
+#             - NotBlank: ~
+#         dateBirth:
+#             - NotBlank: ~
+#             - Date: ~
+#         weight:
+#             - NotBlank: ~
+#             - Positive: ~
+#                 message: Weight should be a positive number .
+#         type:
+#             - NotBlank: ~
+#         breed:
+#             - NotBlank: ~
+#         owner:
+#             - NotBlank: ~
 
-App\Entity\Clinic:
-    properties:
-        name:
-            - NotBlank: ~
-        address:
-            - NotBlank: ~
+# App\Entity\Clinic:
+#     properties:
+#         name:
+#             - NotBlank: ~
+#         address:
+#             - NotBlank: ~
 
-App\Entity\Veterinary:
-    properties:
-        name:
-            - NotBlank: ~
-        crmv:
-            - NotBlank: ~
-        address:
-            - NotBlank: ~
+# App\Entity\Veterinary:
+#     properties:
+#         name:
+#             - NotBlank: ~
+#         crmv:
+#             - NotBlank: ~
+#         address:
+#             - NotBlank: ~
