@@ -116,7 +116,7 @@ api_user_index:
 
 api_user_list:
     path: /api/user/list
-    controller: App\Controller\ApiUserController::userList
+    controller: App\Controller\ApiUserController::list
     defaults:
         _format: json
     methods: GET
