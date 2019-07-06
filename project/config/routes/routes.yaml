@@ -238,3 +238,48 @@ api_veterinary_delete:
     defaults:
         _format: json
     methods: DELETE
+
+#
+# API PET ROUTES
+#
+
+api_pet_index:
+    path: /api/pet
+    controller: App\Controller\ApiPetController::index
+    defaults:
+        _format: json
+
+api_pet_list:
+    path: /api/pet/list
+    controller: App\Controller\ApiPetController::list
+    defaults:
+        _format: json
+    methods: GET
+
+api_pet_show:
+    path: /api/pet/{id}
+    controller: App\Controller\ApiPetController::show
+    defaults:
+        _format: json
+    methods: GET
+
+api_pet_new:
+    path: /api/pet/new
+    controller: App\Controller\ApiPetController:new
+    defaults:
+        _format: json
+    methods: POST
+
+api_pet_edit:
+    path: /api/pet/edit/{id}
+    controller: App\Controller\ApiPetController::edit
+    defaults:
+        _format: json
+    methods: PUT
+
+api_pet_delete:
+    path: /api/pet/delete/{id}
+    controller: App\Controller\ApiPetController::delete
+    defaults:
+        _format: json
+    methods: DELETE
