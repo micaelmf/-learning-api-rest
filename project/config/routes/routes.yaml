@@ -161,7 +161,7 @@ api_clinic_index:
 
 api_clinic_list:
     path: /api/clinic/list
-    controller: App\Controller\ApiClinicController::clinicList
+    controller: App\Controller\ApiClinicController::list
     defaults:
         _format: json
     methods: GET

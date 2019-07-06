@@ -34,9 +34,14 @@ class ApiClinicController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($clinics, 'json');
+        $jsonContent = $serializer->serialize($clinics, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
 
         return new Response($jsonContent);
+        
     }
 
     public function show(Clinic $id)
@@ -49,8 +54,11 @@ class ApiClinicController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($clinic, 'json');
-
+        $jsonContent = $serializer->serialize($clinic, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
         return new Response($jsonContent);
     }
 
@@ -62,12 +70,9 @@ class ApiClinicController extends AbstractController
         $address->setCity($request->get('city'));
         
         $clinic = new Clinic();
-        $clinic->setClinicName($request->get('userName'));
-        $clinic->setEmail($request->get('email'));
+        $clinic->setName($request->get('name'));
         $clinic->setAddress($address);
-        
-        $form = $this->createForm(ClinicType::class, $clinic);
-        
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($clinic);
         $entityManager->flush();
@@ -88,11 +93,10 @@ class ApiClinicController extends AbstractController
         $address->setNumber($request->get('number'));
         $address->setCity($request->get('city'));
         
-        $clinic->setClinicName($request->get('userName'));
-        $clinic->setEmail($request->get('email'));
+        $clinic->setName($request->get('name'));
         $clinic->setAddress($address);
 
-        if (!empty($clinic->getClinicName())) {
+        if (!empty($clinic->getName())) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
