@@ -193,3 +193,48 @@ api_clinic_delete:
     defaults:
         _format: json
     methods: DELETE
+
+#
+# API VETERINARY ROUTES
+#
+
+api_veterinary_index:
+    path: /api/veterinary
+    controller: App\Controller\ApiVeterinaryController::index
+    defaults:
+        _format: json
+
+api_veterinary_list:
+    path: /api/veterinary/list
+    controller: App\Controller\ApiVeterinaryController::list
+    defaults:
+        _format: json
+    methods: GET
+
+api_veterinary_show:
+    path: /api/veterinary/{id}
+    controller: App\Controller\ApiVeterinaryController::show
+    defaults:
+        _format: json
+    methods: GET
+
+api_veterinary_new:
+    path: /api/veterinary/new
+    controller: App\Controller\ApiVeterinaryController:new
+    defaults:
+        _format: json
+    methods: POST
+
+api_veterinary_edit:
+    path: /api/veterinary/edit/{id}
+    controller: App\Controller\ApiVeterinaryController::edit
+    defaults:
+        _format: json
+    methods: PUT
+
+api_veterinary_delete:
+    path: /api/veterinary/delete/{id}
+    controller: App\Controller\ApiVeterinaryController::delete
+    defaults:
+        _format: json
+    methods: DELETE
