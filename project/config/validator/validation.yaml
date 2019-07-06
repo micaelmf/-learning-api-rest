@@ -1,5 +1,7 @@
 # config/validator/validation.yaml
 App\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
     properties:
         userName:
             - NotBlank: ~
@@ -17,8 +19,11 @@ App\Entity\Pet:
             - NotBlank: ~
         dateBirth:
             - NotBlank: ~
-        weigth:
+            - Date: ~
+        weight:
             - NotBlank: ~
+            - Positive: ~
+                message: Weight should be a positive number .
         type:
             - NotBlank: ~
         breed:
@@ -33,7 +38,7 @@ App\Entity\Clinic:
         address:
             - NotBlank: ~
 
-App\Entity\Clinic:
+App\Entity\Veterinary:
     properties:
         name:
             - NotBlank: ~
