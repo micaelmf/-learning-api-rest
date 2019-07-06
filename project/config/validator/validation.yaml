@@ -8,3 +8,36 @@ App\Entity\User:
             - Email:
                 message: The email "{{ value }}" is not a valid email.
                 checkMX: true
+        address:
+            - NotBlank: ~
+
+App\Entity\Pet:
+    properties:
+        name:
+            - NotBlank: ~
+        dateBirth:
+            - NotBlank: ~
+        weigth:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~
+        breed:
+            - NotBlank: ~
+        owner:
+            - NotBlank: ~
+
+App\Entity\Clinic:
+    properties:
+        name:
+            - NotBlank: ~
+        address:
+            - NotBlank: ~
+
+App\Entity\Clinic:
+    properties:
+        name:
+            - NotBlank: ~
+        crmv:
+            - NotBlank: ~
+        address:
+            - NotBlank: ~
