@@ -78,8 +78,8 @@ class ApiPetController extends AbstractController
         return new JsonResponse(['msg' => 'Pet created whit success!'], Response::HTTP_OK);
     }
     
-    public function edit(Request $request, $id){
-        
+    public function edit(Request $request, $id)
+    {
         $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
             ->find($id);
         $owner = $this->getDoctrine()->getRepository('App\Entity\User')
@@ -106,7 +106,8 @@ class ApiPetController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
             ->find($id);
         

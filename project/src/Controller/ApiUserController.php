@@ -71,7 +71,8 @@ class ApiUserController extends AbstractController
         return new JsonResponse(['msg' => 'User created whit success!'], Response::HTTP_OK);
     }
     
-    public function edit(Request $request, $id){
+    public function edit(Request $request, $id)
+    {
         
         $user = $this->getDoctrine()->getRepository('App\Entity\User')
             ->find($id);
@@ -99,7 +100,8 @@ class ApiUserController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
         
         if (empty($user)) {

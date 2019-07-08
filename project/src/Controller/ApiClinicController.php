@@ -78,7 +78,8 @@ class ApiClinicController extends AbstractController
         return new JsonResponse(['msg' => 'Clinic created whit success!'], Response::HTTP_OK);
     }
     
-    public function edit(Request $request, $id){
+    public function edit(Request $request, $id)
+    {
         
         $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')->find($id);
         
@@ -104,7 +105,8 @@ class ApiClinicController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')->find($id);
         
         if (empty($clinic)) {

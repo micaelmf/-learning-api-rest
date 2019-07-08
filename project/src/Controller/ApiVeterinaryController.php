@@ -80,8 +80,8 @@ class ApiVeterinaryController extends AbstractController
         return new JsonResponse(['msg' => 'Veterinary created whit success!'], Response::HTTP_OK);
     }
     
-    public function edit(Request $request, $id){
-        
+    public function edit(Request $request, $id)
+    {
         $veterinary = $this->getDoctrine()->getRepository('App\Entity\Veterinary')->find($id);
         $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')->find($request->get('clinic'));
         
@@ -109,7 +109,8 @@ class ApiVeterinaryController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $veterinary = $this->getDoctrine()->getRepository('App\Entity\Veterinary')->find($id);
         
         if (empty($veterinary)) {
