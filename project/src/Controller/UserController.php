@@ -50,7 +50,9 @@ class UserController extends AbstractController
     public function list()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQuery('SELECT user FROM App\Entity\User user');
+        $query = $entityManager->createQuery('
+            SELECT user FROM App\Entity\User user'
+        );
         $users = $query->getResult();
 
         return $this->render('user/list-user.html.twig', [

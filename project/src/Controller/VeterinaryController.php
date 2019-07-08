@@ -50,7 +50,9 @@ class VeterinaryController extends AbstractController
     public function list()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQuery('SELECT veterinary FROM App\Entity\Veterinary veterinary');
+        $query = $entityManager->createQuery('
+            SELECT veterinary FROM App\Entity\Veterinary veterinary'
+        );
         $vets = $query->getResult();
 
         return $this->render('veterinary/list-veterinary.html.twig', [

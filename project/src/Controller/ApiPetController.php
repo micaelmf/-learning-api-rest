@@ -24,8 +24,7 @@ class ApiPetController extends AbstractController
 
     public function list()
     {
-        $pets = $this->getDoctrine()
-            ->getRepository('App\Entity\Pet')
+        $pets = $this->getDoctrine()->getRepository('App\Entity\Pet')
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -43,8 +42,7 @@ class ApiPetController extends AbstractController
 
     public function show(Pet $id)
     {
-        $pet = $this->getDoctrine()
-            ->getRepository('App\Entity\Pet')
+        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
             ->find($id);
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -62,7 +60,8 @@ class ApiPetController extends AbstractController
 
     public function new(Request $request)
     {
-        $owner = $this->getDoctrine()->getRepository('App\Entity\User')->find($request->get('owner'));
+        $owner = $this->getDoctrine()->getRepository('App\Entity\User')
+            ->find($request->get('owner'));
         
         $pet = new Pet();
         $pet->setName($request->get('name'));
@@ -81,8 +80,10 @@ class ApiPetController extends AbstractController
     
     public function edit(Request $request, $id){
         
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')->find($id);
-        $owner = $this->getDoctrine()->getRepository('App\Entity\User')->find($request->get('owner'));
+        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
+            ->find($id);
+        $owner = $this->getDoctrine()->getRepository('App\Entity\User')
+            ->find($request->get('owner'));
         
         if (empty($pet)) {
             return new JsonResponse(['msg' => 'Pet not found!'], Response::HTTP_NOT_FOUND);
@@ -106,7 +107,8 @@ class ApiPetController extends AbstractController
     }
 
     public function delete($id){
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')->find($id);
+        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
+            ->find($id);
         
         if (empty($pet)) {
             return new JsonResponse(['msg' => 'Pet not found!'], Response::HTTP_NOT_FOUND);

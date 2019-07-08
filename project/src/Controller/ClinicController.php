@@ -50,7 +50,9 @@ class ClinicController extends AbstractController
     public function list()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQuery('SELECT clinic FROM App\Entity\Clinic clinic');
+        $query = $entityManager->createQuery('
+            SELECT clinic FROM App\Entity\Clinic clinic'
+        );
         $clinic = $query->getResult();
 
         return $this->render('clinic/list-clinic.html.twig', [

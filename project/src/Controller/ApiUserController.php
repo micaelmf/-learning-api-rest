@@ -24,8 +24,7 @@ class ApiUserController extends AbstractController
 
     public function list()
     {
-        $users = $this->getDoctrine()
-            ->getRepository('App\Entity\User')
+        $users = $this->getDoctrine()->getRepository('App\Entity\User')
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -39,8 +38,7 @@ class ApiUserController extends AbstractController
 
     public function show(User $id)
     {
-        $user = $this->getDoctrine()
-            ->getRepository('App\Entity\User')
+        $user = $this->getDoctrine()->getRepository('App\Entity\User')
             ->find($id);
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -75,7 +73,8 @@ class ApiUserController extends AbstractController
     
     public function edit(Request $request, $id){
         
-        $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
+        $user = $this->getDoctrine()->getRepository('App\Entity\User')
+            ->find($id);
         
         if (empty($user)) {
             return new JsonResponse(['msg' => 'User not found!'], Response::HTTP_NOT_FOUND);
