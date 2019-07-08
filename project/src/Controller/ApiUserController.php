@@ -73,7 +73,6 @@ class ApiUserController extends AbstractController
     
     public function edit(Request $request, $id)
     {
-        
         $user = $this->getDoctrine()->getRepository('App\Entity\User')
             ->find($id);
         

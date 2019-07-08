@@ -40,7 +40,6 @@ class ApiVeterinaryController extends AbstractController
         ]);
 
         return new Response($jsonContent);
-        
     }
 
     public function show(Veterinary $id)

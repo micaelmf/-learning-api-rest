@@ -39,7 +39,6 @@ class ApiClinicController extends AbstractController
         ]);
 
         return new Response($jsonContent);
-        
     }
 
     public function show(Clinic $id)
@@ -80,7 +79,6 @@ class ApiClinicController extends AbstractController
     
     public function edit(Request $request, $id)
     {
-        
         $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')->find($id);
         
         if (empty($clinic)) {
@@ -123,6 +121,4 @@ class ApiClinicController extends AbstractController
 
         return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_NOT_ACCEPTABLE);
     }
-
-    
 }
