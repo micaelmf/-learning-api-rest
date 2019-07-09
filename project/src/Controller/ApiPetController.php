@@ -75,7 +75,7 @@ class ApiPetController extends AbstractController
         $entityManager->persist($pet);
         $entityManager->flush();
         
-        return new JsonResponse(['msg' => 'Pet created whit success!'], Response::HTTP_OK);
+        return new JsonResponse(['msg' => 'Pet created whit success!'], Response::HTTP_CREATED);
     }
     
     public function edit(Request $request, $id)
@@ -103,7 +103,7 @@ class ApiPetController extends AbstractController
             return new JsonResponse(['msg' => 'Pet edited whit success!'], Response::HTTP_OK);
         }
 
-        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_BAD_REQUEST);
     }
 
     public function delete($id)
@@ -123,6 +123,6 @@ class ApiPetController extends AbstractController
             return new JsonResponse(['msg' => 'Pet deleted whit success!'], Response::HTTP_OK);
         }
 
-        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_BAD_REQUEST);
     }
 }

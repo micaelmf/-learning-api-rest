@@ -18,11 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiVeterinaryController extends AbstractController
 {
-    public function index()
-    {
-        return new JsonResponse(['status' => 'ok']);
-    }
-
     public function list()
     {
         $veterinaries = $this->getDoctrine()
@@ -57,6 +52,7 @@ class ApiVeterinaryController extends AbstractController
                 return $object->getId();
             }
         ]);
+
         return new Response($jsonContent);
     }
 
@@ -76,7 +72,7 @@ class ApiVeterinaryController extends AbstractController
         $entityManager->persist($veterinary);
         $entityManager->flush();
         
-        return new JsonResponse(['msg' => 'Veterinary created whit success!'], Response::HTTP_OK);
+        return new JsonResponse(['msg' => 'Veterinary created whit success!'], Response::HTTP_CREATED);
     }
     
     public function edit(Request $request, $id)
@@ -105,7 +101,7 @@ class ApiVeterinaryController extends AbstractController
             return new JsonResponse(['msg' => 'Veterinary edited whit success!'], Response::HTTP_OK);
         }
 
-        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_BAD_REQUEST);
     }
 
     public function delete($id)
@@ -124,6 +120,6 @@ class ApiVeterinaryController extends AbstractController
             return new JsonResponse(['msg' => 'Veterinary deleted whit success!'], Response::HTTP_OK);
         }
 
-        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_BAD_REQUEST);
     }
 }

@@ -68,7 +68,7 @@ class ApiUserController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
         
-        return new JsonResponse(['msg' => 'User created whit success!'], Response::HTTP_OK);
+        return new JsonResponse(['msg' => 'User created whit success!'], Response::HTTP_CREATED);
     }
     
     public function edit(Request $request, $id)
@@ -96,7 +96,7 @@ class ApiUserController extends AbstractController
             return new JsonResponse(['msg' => 'User edited whit success!'], Response::HTTP_OK);
         }
 
-        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_BAD_REQUEST);
     }
 
     public function delete($id)
@@ -115,6 +115,6 @@ class ApiUserController extends AbstractController
             return new JsonResponse(['msg' => 'User deleted whit success!'], Response::HTTP_OK);
         }
 
-        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_BAD_REQUEST);
     }
 }

@@ -17,15 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiClinicController extends AbstractController
 {
-    public function index()
-    {
-        return new JsonResponse(['status' => 'ok']);
-    }
-
     public function list()
     {
-        $clinics = $this->getDoctrine()
-            ->getRepository('App\Entity\Clinic')
+        $clinics = $this->getDoctrine()->getRepository('App\Entity\Clinic')
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -43,8 +37,7 @@ class ApiClinicController extends AbstractController
 
     public function show(Clinic $id)
     {
-        $clinic = $this->getDoctrine()
-            ->getRepository('App\Entity\Clinic')
+        $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')
             ->find($id);
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -56,6 +49,7 @@ class ApiClinicController extends AbstractController
                 return $object->getId();
             }
         ]);
+        
         return new Response($jsonContent);
     }
 
@@ -74,7 +68,7 @@ class ApiClinicController extends AbstractController
         $entityManager->persist($clinic);
         $entityManager->flush();
         
-        return new JsonResponse(['msg' => 'Clinic created whit success!'], Response::HTTP_OK);
+        return new JsonResponse(['msg' => 'Clinic created whit success!'], Response::HTTP_CREATED);
     }
     
     public function edit(Request $request, $id)
@@ -100,7 +94,7 @@ class ApiClinicController extends AbstractController
             return new JsonResponse(['msg' => 'Clinic edited whit success!'], Response::HTTP_OK);
         }
 
-        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_BAD_REQUEST);
     }
 
     public function delete($id)
@@ -119,6 +113,6 @@ class ApiClinicController extends AbstractController
             return new JsonResponse(['msg' => 'Clinic deleted whit success!'], Response::HTTP_OK);
         }
 
-        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_BAD_REQUEST);
     }
 }
