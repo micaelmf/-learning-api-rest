@@ -27,7 +27,7 @@ class ApiClinicController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($clinics, 'json', [
-            'ignored_attributes' => ['veterinaries', 'address']
+            'ignored_attributes' => ['veterinaries']
         ]);
 
         return new Response($jsonContent);
@@ -42,10 +42,8 @@ class ApiClinicController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($clinic, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
+        $jsonContent = $serializer->serialize($clinics, 'json', [
+            'ignored_attributes' => ['veterinaries']
         ]);
         
         return new Response($jsonContent);
@@ -53,13 +51,13 @@ class ApiClinicController extends AbstractController
 
     public function showAddress(Clinic $id)
     {
-        $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')
+        $user = $this->getDoctrine()->getRepository('App\Entity\Clinic')
             ->find($id);
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
         
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($clinic, 'json', [
+        $jsonContent = $serializer->serialize($user, 'json', [
             'attributes' => ['address']
         ]);
 

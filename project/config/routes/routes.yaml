@@ -168,7 +168,14 @@ api_clinics_show:
         _format: json
     methods: GET
 
-api_clinics_show_address:
+# api_clinics_show_veterinaries:
+#     path: api/v1/clinics/{id}/veterinaries
+#     controller: App\Controller\ApiClinicController::showVeterinariesOfClinic
+#     defaults:
+#         _format: json
+#     methods: GET
+
+api_clinics_show_veterinaries:
     path: api/v1/clinics/{id}/addresses
     controller: App\Controller\ApiClinicController::showAddress
     defaults:
