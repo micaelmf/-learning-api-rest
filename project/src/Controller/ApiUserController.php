@@ -26,7 +26,9 @@ class ApiUserController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($users, 'json');
+        $jsonContent = $serializer->serialize($users, 'json', [
+            'ignored_attributes' => ['address']
+        ]);
 
         return new Response($jsonContent);
     }
@@ -40,7 +42,9 @@ class ApiUserController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($user, 'json');
+        $jsonContent = $serializer->serialize($user, 'json', [
+            'ignored_attributes' => ['address']
+        ]);
 
         return new Response($jsonContent);
     }

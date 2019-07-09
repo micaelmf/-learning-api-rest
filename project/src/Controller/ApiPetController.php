@@ -27,9 +27,7 @@ class ApiPetController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($pets, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
+            'ignored_attributes' => ['owner']
         ]);
 
         return new Response($jsonContent);
@@ -45,11 +43,9 @@ class ApiPetController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($pet, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
+            'ignored_attributes' => ['owner']
         ]);
-
+        
         return new Response($jsonContent);
     }
 

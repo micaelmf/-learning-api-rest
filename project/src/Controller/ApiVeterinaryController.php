@@ -29,9 +29,7 @@ class ApiVeterinaryController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($veterinaries, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
+            'ignored_attributes' => ['address', 'clinic']
         ]);
 
         return new Response($jsonContent);
@@ -48,9 +46,7 @@ class ApiVeterinaryController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($veterinary, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
+            'ignored_attributes' => ['address', 'clinic']
         ]);
 
         return new Response($jsonContent);

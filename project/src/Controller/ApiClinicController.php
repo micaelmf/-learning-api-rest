@@ -27,9 +27,7 @@ class ApiClinicController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($clinics, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
+            'ignored_attributes' => ['veterinaries', 'address']
         ]);
 
         return new Response($jsonContent);
