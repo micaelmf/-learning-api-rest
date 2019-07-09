@@ -148,7 +148,7 @@ api_users_delete:
 #
 
 api_clinics_list:
-    path: api/v1/clinics/list
+    path: api/v1/clinics
     controller: App\Controller\ApiClinicController::list
     defaults:
         _format: json
@@ -187,7 +187,7 @@ api_clinics_delete:
 #
 
 api_veterinaries_list:
-    path: api/v1/veterinaries/list
+    path: api/v1/veterinaries
     controller: App\Controller\ApiVeterinaryController::list
     defaults:
         _format: json
@@ -226,7 +226,7 @@ api_veterinaries_delete:
 #
 
 api_pets_list:
-    path: api/v1/pets/list
+    path: api/v1/pets
     controller: App\Controller\ApiPetController::list
     defaults:
         _format: json
