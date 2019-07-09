@@ -17,11 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiPetController extends AbstractController
 {
-    public function index()
-    {
-        return new JsonResponse(['status' => 'ok']);
-    }
-
     public function list()
     {
         $pets = $this->getDoctrine()->getRepository('App\Entity\Pet')
