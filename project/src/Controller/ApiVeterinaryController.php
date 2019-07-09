@@ -52,6 +52,21 @@ class ApiVeterinaryController extends AbstractController
         return new Response($jsonContent);
     }
 
+    public function showAddress(Veterinary $id)
+    {
+        $vet = $this->getDoctrine()->getRepository('App\Entity\Veterinary')
+            ->find($id);
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        
+        $serializer = new Serializer($normalizers, $encoders);
+        $jsonContent = $serializer->serialize($vet, 'json', [
+            'attributes' => ['address']
+        ]);
+
+        return new Response($jsonContent);
+    }
+
     public function new(Request $request)
     {
         $address = new Address();

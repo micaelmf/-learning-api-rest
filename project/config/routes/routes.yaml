@@ -122,6 +122,13 @@ api_users_show:
         _format: json
     methods: GET
 
+api_users_show_address:
+    path: api/v1/users/{id}/addresses
+    controller: App\Controller\ApiUserController::showAddress
+    defaults:
+        _format: json
+    methods: GET
+
 api_users_new:
     path: api/v1/users
     controller: App\Controller\ApiUserController:new
@@ -161,6 +168,13 @@ api_clinics_show:
         _format: json
     methods: GET
 
+api_clinics_show_address:
+    path: api/v1/clinics/{id}/addresses
+    controller: App\Controller\ApiClinicController::showAddress
+    defaults:
+        _format: json
+    methods: GET
+
 api_clinics_new:
     path: api/v1/clinics
     controller: App\Controller\ApiClinicController:new
@@ -196,6 +210,13 @@ api_veterinaries_list:
 api_veterinaries_show:
     path: api/v1/veterinaries/{id}
     controller: App\Controller\ApiVeterinaryController::show
+    defaults:
+        _format: json
+    methods: GET
+
+api_veterinaries_show_address:
+    path: api/v1/veterinaries/{id}/addresses
+    controller: App\Controller\ApiVeterinaryController::showAddress
     defaults:
         _format: json
     methods: GET
