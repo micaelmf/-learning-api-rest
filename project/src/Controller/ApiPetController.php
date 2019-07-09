@@ -49,6 +49,37 @@ class ApiPetController extends AbstractController
         return new Response($jsonContent);
     }
 
+    public function showOwner(Pet $id)
+    {
+        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
+            ->find($id);
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        
+        $serializer = new Serializer($normalizers, $encoders);
+        $jsonContent = $serializer->serialize($pet, 'json', [
+            'attributes' => ['owner'],
+            'ignored_attributes' => ['address']
+        ]);
+
+        return new Response($jsonContent);
+    }
+
+    public function showOwnerAddress(Pet $id)
+    {
+        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
+            ->find($id);
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        
+        $serializer = new Serializer($normalizers, $encoders);
+        $jsonContent = $serializer->serialize($pet, 'json', [
+            'attributes' => ['owner' => ['address']]
+        ]);
+
+        return new Response($jsonContent);
+    }
+
     public function new(Request $request)
     {
         $owner = $this->getDoctrine()->getRepository('App\Entity\User')

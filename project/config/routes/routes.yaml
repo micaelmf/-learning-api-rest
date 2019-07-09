@@ -260,6 +260,20 @@ api_pets_show:
         _format: json
     methods: GET
 
+api_pets_show_owner:
+    path: api/v1/pets/{id}/owners
+    controller: App\Controller\ApiPetController::showOwner
+    defaults:
+        _format: json
+    methods: GET
+
+api_pets_show_owner_address:
+    path: api/v1/pets/{id}/owners/addresses
+    controller: App\Controller\ApiPetController::showOwnerAddress
+    defaults:
+        _format: json
+    methods: GET
+
 api_pets_new:
     path: api/v1/pets
     controller: App\Controller\ApiPetController:new
