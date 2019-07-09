@@ -27,7 +27,7 @@ class ApiPetController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($pets, 'json', [
-            'ignored_attributes' => ['owner']
+            'ignored_attributes' => ['owner' => 'address']
         ]);
 
         return new Response($jsonContent);
@@ -43,40 +43,9 @@ class ApiPetController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($pet, 'json', [
-            'ignored_attributes' => ['owner']
+            'ignored_attributes' => ['owner' => 'address']
         ]);
         
-        return new Response($jsonContent);
-    }
-
-    public function showOwner(Pet $id)
-    {
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
-            ->find($id);
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        
-        $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($pet, 'json', [
-            'attributes' => ['owner'],
-            'ignored_attributes' => ['address']
-        ]);
-
-        return new Response($jsonContent);
-    }
-
-    public function showOwnerAddress(Pet $id)
-    {
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
-            ->find($id);
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        
-        $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($pet, 'json', [
-            'attributes' => ['owner' => ['address']]
-        ]);
-
         return new Response($jsonContent);
     }
 
