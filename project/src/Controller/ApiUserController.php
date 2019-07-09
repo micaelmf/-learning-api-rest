@@ -17,11 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiUserController extends AbstractController
 {
-    public function index()
-    {
-        return new JsonResponse(['status' => 'ok']);
-    }
-
     public function list()
     {
         $users = $this->getDoctrine()->getRepository('App\Entity\User')
