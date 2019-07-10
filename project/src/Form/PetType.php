@@ -17,7 +17,7 @@ class PetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class)
-            ->add('dateBirth', DateType::class, ['widget' => 'single_text', 'input' => 'string',])
+            ->add('dateBirth', DateType::class, ['widget' => 'single_text'])
             ->add('weight', TextType::class)
             ->add('type', TextType::class)
             ->add('breed', TextType::class)
