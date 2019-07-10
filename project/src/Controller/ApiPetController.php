@@ -51,22 +51,20 @@ class ApiPetController extends AbstractController
 
     public function new(Request $request)
     {
-        $owner = $this->getDoctrine()->getRepository('App\Entity\User')
-            ->find($request->get('owner'));
+        // reference: https://symfonycasts.com/screencast/symfony-rest/form-post
+        $data = json_decode($request->getContent(), true);
         
         $pet = new Pet();
-        $pet->setName($request->get('name'));
-        $pet->setDateBirth($request->get('dateBirth'));
-        $pet->setWeigth($request->get('weigth'));
-        $pet->setType($request->get('type'));
-        $pet->setBreed($request->get('breed'));
-        $pet->setOwner($owner);
-        
+        $form = $this->createForm(PetType::class, $pet);
+        $form->submit($data);
+
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($pet);
         $entityManager->flush();
+
+        $response = new Response('Pet created whit success!', Response::HTTP_CREATED);
+        $response->headers->set('Location', '/some/programmer/url');
         
-        return new JsonResponse(['msg' => 'Pet created whit success!'], Response::HTTP_CREATED);
+        return $response;
     }
     
     public function edit(Request $request, $id)
