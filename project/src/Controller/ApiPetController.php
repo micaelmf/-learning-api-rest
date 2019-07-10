@@ -67,32 +67,23 @@ class ApiPetController extends AbstractController
         return $response;
     }
     
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Pet $id)
     {
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
-            ->find($id);
-        $owner = $this->getDoctrine()->getRepository('App\Entity\User')
-            ->find($request->get('owner'));
         
-        if (empty($pet)) {
-            return new JsonResponse(['msg' => 'Pet not found!'], Response::HTTP_NOT_FOUND);
-        }
+        // reference: https://symfonycasts.com/screencast/symfony-rest/form-post
+        $data = json_decode($request->getContent(), true);
         
-        $pet->setName($request->get('name'));
-        $pet->setDateBirth($request->get('dateBirth'));
-        $pet->setWeigth($request->get('weigth'));
-        $pet->setType($request->get('type'));
-        $pet->setBreed($request->get('breed'));
-        $pet->setOwner($owner);
+        $pet = new Pet();
+        $form = $this->createForm(PetType::class, $pet);
+        $form->submit($data);
 
-        if (!empty($pet->getPetName())) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
 
-            return new JsonResponse(['msg' => 'Pet edited whit success!'], Response::HTTP_OK);
-        }
-
-        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_BAD_REQUEST);
+        $response = new Response('Pet edited whit success!', Response::HTTP_OK);
+        $response->headers->set('Location', '/some/programmer/url');
+        
+        return $response;
     }
 
     public function delete($id)
