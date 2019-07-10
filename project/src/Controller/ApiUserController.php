@@ -53,63 +53,52 @@ class ApiUserController extends AbstractController
         $address->setCity($request->get('city'));
         
         $user = new User();
-        $user->setUserName($request->get('userName'));
+        $user->setUserName($request->get('name'));
         $user->setEmail($request->get('email'));
         $user->setAddress($address);
         
         $form = $this->createForm(UserType::class, $user);
+        $form->submit($user);
         
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
         
-        return new JsonResponse(['msg' => 'User created whit success!'], Response::HTTP_CREATED);
+        $response = new JsonResponse(['msg'=>'User created whit success!'], Response::HTTP_CREATED);
+        
+        return $response;
     }
     
-    public function edit(Request $request, $id)
+    public function edit(Request $request, User $user)
     {
-        $user = $this->getDoctrine()->getRepository('App\Entity\User')
-            ->find($id);
-        
-        if (empty($user)) {
-            return new JsonResponse(['msg' => 'User not found!'], Response::HTTP_NOT_FOUND);
-        }
-        
         $address = $user->getAddress();
         $address->setStreet($request->get('street'));
         $address->setNumber($request->get('number'));
         $address->setCity($request->get('city'));
         
-        $user->setUserName($request->get('userName'));
+        $user->setUserName($request->get('name'));
         $user->setEmail($request->get('email'));
         $user->setAddress($address);
 
-        if (!empty($user->getUserName())) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
-
-            return new JsonResponse(['msg' => 'User edited whit success!'], Response::HTTP_OK);
-        }
-
-        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_BAD_REQUEST);
+        $form = $this->createForm(UserType::class, $user);
+        $form->submit($user);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        
+        $response = new JsonResponse(['msg'=>'User edited whit success!'], Response::HTTP_OK);
+        
+        return $response;
     }
 
-    public function delete($id)
+    public function delete(User $user)
     {
-        $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
-        
-        if (empty($user)) {
-            return new JsonResponse(['msg' => 'User not found!'], Response::HTTP_NOT_FOUND);
-        }
-        
-        if (!empty($user)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
 
-            return new JsonResponse(['msg' => 'User deleted whit success!'], Response::HTTP_OK);
-        }
-
-        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_BAD_REQUEST);
+        $response = new JsonResponse(['msg'=>'User deleted whit success!'], Response::HTTP_OK);
+        
+        return $response;
     }
 }
