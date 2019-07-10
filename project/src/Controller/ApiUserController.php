@@ -26,9 +26,7 @@ class ApiUserController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($users, 'json', [
-            'ignored_attributes' => ['address']
-        ]);
+        $jsonContent = $serializer->serialize($users, 'json');
 
         return new Response($jsonContent);
     }
@@ -42,24 +40,7 @@ class ApiUserController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($user, 'json', [
-            'ignored_attributes' => ['address']
-        ]);
-
-        return new Response($jsonContent);
-    }
-
-    public function showAddress(User $id)
-    {
-        $user = $this->getDoctrine()->getRepository('App\Entity\User')
-            ->find($id);
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        
-        $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($user, 'json', [
-            'attributes' => ['address']
-        ]);
+        $jsonContent = $serializer->serialize($user, 'json');
 
         return new Response($jsonContent);
     }

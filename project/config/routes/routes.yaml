@@ -122,13 +122,6 @@ api_users_show:
         _format: json
     methods: GET
 
-api_users_show_address:
-    path: api/v1/users/{id}/addresses
-    controller: App\Controller\ApiUserController::showAddress
-    defaults:
-        _format: json
-    methods: GET
-
 api_users_new:
     path: api/v1/users
     controller: App\Controller\ApiUserController:new

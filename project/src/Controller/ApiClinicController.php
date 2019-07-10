@@ -49,21 +49,6 @@ class ApiClinicController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function showAddress(Clinic $id)
-    {
-        $user = $this->getDoctrine()->getRepository('App\Entity\Clinic')
-            ->find($id);
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        
-        $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($user, 'json', [
-            'attributes' => ['address']
-        ]);
-
-        return new Response($jsonContent);
-    }
-
     public function new(Request $request)
     {
         $address = new Address();

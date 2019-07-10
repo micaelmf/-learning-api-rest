@@ -29,7 +29,7 @@ class ApiVeterinaryController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($veterinaries, 'json', [
-            'ignored_attributes' => ['address', 'clinic']
+            'ignored_attributes' => ['clinic']
         ]);
 
         return new Response($jsonContent);
@@ -46,22 +46,7 @@ class ApiVeterinaryController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($veterinary, 'json', [
-            'ignored_attributes' => ['address', 'clinic']
-        ]);
-
-        return new Response($jsonContent);
-    }
-
-    public function showAddress(Veterinary $id)
-    {
-        $vet = $this->getDoctrine()->getRepository('App\Entity\Veterinary')
-            ->find($id);
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        
-        $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($vet, 'json', [
-            'attributes' => ['address']
+            'ignored_attributes' => ['clinic']
         ]);
 
         return new Response($jsonContent);
