@@ -1,0 +1,2 @@
+# learning-api-rest
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/86cbae6a04924d0aafb5b6ff8df6a436)](https://app.codacy.com/app/PHPRussas/learning-api-rest?utm_source=github.com&utm_medium=referral&utm_content=micaelmf/learning-api-rest&utm_campaign=Badge_Grade_Settings)
