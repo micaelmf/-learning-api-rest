@@ -43,12 +43,8 @@ class ApiPetController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function show(Pet $id)
+    public function show(Pet $pet)
     {
-        $pet = $this->getDoctrine()
-            ->getRepository('App\Entity\Pet')
-            ->find($id);
-        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
@@ -81,9 +77,8 @@ class ApiPetController extends AbstractController
         return new JsonResponse(['msg' => 'Pet created whit success!'], Response::HTTP_OK);
     }
     
-    public function edit(Request $request, $id){
-        
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')->find($id);
+    public function edit(Request $request, $pet)
+    {
         $owner = $this->getDoctrine()->getRepository('App\Entity\User')->find($request->get('owner'));
         
         if (empty($pet)) {
@@ -107,8 +102,8 @@ class ApiPetController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function delete($id){
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')->find($id);
+    public function delete($pet)
+    {
         
         if (empty($pet)) {
             return new JsonResponse(['msg' => 'Pet not found!'], Response::HTTP_NOT_FOUND);

@@ -42,12 +42,8 @@ class ApiVeterinaryController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function show(Veterinary $id)
+    public function show(Veterinary $veterinary)
     {
-        $veterinary = $this->getDoctrine()
-            ->getRepository('App\Entity\Veterinary')
-            ->find($id);
-        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
@@ -79,9 +75,8 @@ class ApiVeterinaryController extends AbstractController
         return new JsonResponse(['msg' => 'Veterinary created whit success!'], Response::HTTP_OK);
     }
     
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $veterinary)
     {
-        $veterinary = $this->getDoctrine()->getRepository('App\Entity\Veterinary')->find($id);
         $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')->find($request->get('clinic'));
         
         if (empty($veterinary)) {
@@ -108,10 +103,8 @@ class ApiVeterinaryController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function delete($id)
+    public function delete($veterinary)
     {
-        $veterinary = $this->getDoctrine()->getRepository('App\Entity\Veterinary')->find($id);
-        
         if (empty($veterinary)) {
             return new JsonResponse(['msg' => 'Veterinary not found!'], Response::HTTP_NOT_FOUND);
         }
