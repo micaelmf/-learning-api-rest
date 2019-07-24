@@ -5,11 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Address;
 use App\Form\UserType;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -26,8 +24,7 @@ class ApiUserController extends AbstractController
 
     public function list()
     {
-        $users = $this->getDoctrine()
-            ->getRepository('App\Entity\User')
+        $users = $this->getDoctrine()->getRepository('App\Entity\User')
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -41,8 +38,7 @@ class ApiUserController extends AbstractController
 
     public function show(User $id)
     {
-        $user = $this->getDoctrine()
-            ->getRepository('App\Entity\User')
+        $user = $this->getDoctrine()->getRepository('App\Entity\User')
             ->find($id);
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -75,9 +71,10 @@ class ApiUserController extends AbstractController
         return new JsonResponse(['msg' => 'User created whit success!'], Response::HTTP_OK);
     }
     
-    public function edit(Request $request, $id){
-        
-        $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
+    public function edit(Request $request, $id)
+    {
+        $user = $this->getDoctrine()->getRepository('App\Entity\User')
+            ->find($id);
         
         if (empty($user)) {
             return new JsonResponse(['msg' => 'User not found!'], Response::HTTP_NOT_FOUND);
@@ -102,7 +99,8 @@ class ApiUserController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $user = $this->getDoctrine()->getRepository('App\Entity\User')->find($id);
         
         if (empty($user)) {

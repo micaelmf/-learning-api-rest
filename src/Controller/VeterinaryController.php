@@ -37,7 +37,7 @@ class VeterinaryController extends AbstractController
             $entityManager->persist($vet);
             $entityManager->flush();
 
-            return $this->redirectToRoute('vet_edit',[
+            return $this->redirectToRoute('vet_edit', [
                 'id' => $vet->getId()
             ]);
         }
@@ -50,7 +50,10 @@ class VeterinaryController extends AbstractController
     public function list()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQuery('SELECT veterinary FROM App\Entity\Veterinary veterinary');
+        $query = $entityManager->createQuery(
+            '
+            SELECT veterinary FROM App\Entity\Veterinary veterinary'
+        );
         $vets = $query->getResult();
 
         return $this->render('veterinary/list-veterinary.html.twig', [
@@ -71,7 +74,7 @@ class VeterinaryController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
-            return $this->redirectToRoute('vet_edit',[
+            return $this->redirectToRoute('vet_edit', [
                 'id' => $vet->getId()
             ]);
         }
@@ -87,7 +90,7 @@ class VeterinaryController extends AbstractController
         $entityManager->remove($vet);
         $entityManager->flush();
         
-        return $this->render('veterinary/remove-veterinary.html.twig',[
+        return $this->render('veterinary/remove-veterinary.html.twig', [
             'vet' => $vet,
         ]);
     }

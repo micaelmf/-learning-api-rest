@@ -1,5 +1,5 @@
 <?php
-// src/Controller/UserController.php
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -37,7 +37,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_edit',[
+            return $this->redirectToRoute('user_edit', [
                 'id' => $user->getId()
             ]);
         }
@@ -50,7 +50,10 @@ class UserController extends AbstractController
     public function list()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQuery('SELECT user FROM App\Entity\User user');
+        $query = $entityManager->createQuery(
+            '
+            SELECT user FROM App\Entity\User user'
+        );
         $users = $query->getResult();
 
         return $this->render('user/list-user.html.twig', [
@@ -71,7 +74,7 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_edit',[
+            return $this->redirectToRoute('user_edit', [
                 'id' => $user->getId()
             ]);
         }
@@ -87,7 +90,7 @@ class UserController extends AbstractController
         $entityManager->remove($user);
         $entityManager->flush();
         
-        return $this->render('user/remove-user.html.twig',[
+        return $this->render('user/remove-user.html.twig', [
             'user' => $user,
         ]);
     }
