@@ -37,7 +37,7 @@ class ClinicController extends AbstractController
             $entityManager->persist($clinic);
             $entityManager->flush();
 
-            return $this->redirectToRoute('clinic_edit',[
+            return $this->redirectToRoute('clinic_edit', [
                 'id' => $clinic->getId()
             ]);
         }
@@ -50,7 +50,10 @@ class ClinicController extends AbstractController
     public function list()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQuery('SELECT clinic FROM App\Entity\Clinic clinic');
+        $query = $entityManager->createQuery(
+            '
+            SELECT clinic FROM App\Entity\Clinic clinic'
+        );
         $clinic = $query->getResult();
 
         return $this->render('clinic/list-clinic.html.twig', [
@@ -71,7 +74,7 @@ class ClinicController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
-            return $this->redirectToRoute('clinic_edit',[
+            return $this->redirectToRoute('clinic_edit', [
                 'id' => $clinic->getId()
             ]);
         }
@@ -87,9 +90,8 @@ class ClinicController extends AbstractController
         $entityManager->remove($clinic);
         $entityManager->flush();
         
-        return $this->render('clinic/remove-clinic.html.twig',[
+        return $this->render('clinic/remove-clinic.html.twig', [
             'clinic' => $clinic,
         ]);
     }
-
 }

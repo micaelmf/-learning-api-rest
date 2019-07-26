@@ -5,11 +5,9 @@ namespace App\Controller;
 use App\Entity\Clinic;
 use App\Entity\Address;
 use App\Form\ClinicType;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -41,15 +39,10 @@ class ApiClinicController extends AbstractController
         ]);
 
         return new Response($jsonContent);
-        
     }
 
-    public function show(Clinic $id)
+    public function show(Clinic $clinic)
     {
-        $clinic = $this->getDoctrine()
-            ->getRepository('App\Entity\Clinic')
-            ->find($id);
-        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
@@ -80,10 +73,8 @@ class ApiClinicController extends AbstractController
         return new JsonResponse(['msg' => 'Clinic created whit success!'], Response::HTTP_OK);
     }
     
-    public function edit(Request $request, $id){
-        
-        $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')->find($id);
-        
+    public function edit(Request $request, $clinic)
+    {
         if (empty($clinic)) {
             return new JsonResponse(['msg' => 'Clinic not found!'], Response::HTTP_NOT_FOUND);
         }
@@ -106,9 +97,8 @@ class ApiClinicController extends AbstractController
         return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
     }
 
-    public function delete($id){
-        $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')->find($id);
-        
+    public function delete($clinic)
+    {
         if (empty($clinic)) {
             return new JsonResponse(['msg' => 'Clinic not found!'], Response::HTTP_NOT_FOUND);
         }
@@ -123,6 +113,4 @@ class ApiClinicController extends AbstractController
 
         return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_NOT_ACCEPTABLE);
     }
-
-    
 }

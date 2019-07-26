@@ -49,7 +49,7 @@ class PetController extends AbstractController
             $entityManager->persist($pet);
             $entityManager->flush();
 
-            return $this->redirectToRoute('pet_edit',[
+            return $this->redirectToRoute('pet_edit', [
                 'id' => $pet->getId()
             ]);
         }
@@ -95,7 +95,7 @@ class PetController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
-            return $this->redirectToRoute('pet_edit',[
+            return $this->redirectToRoute('pet_edit', [
                 'id' => $pet->getId()
             ]);
         }
@@ -111,7 +111,7 @@ class PetController extends AbstractController
         $entityManager->remove($pet);
         $entityManager->flush();
         
-        return $this->render('pet/remove-pet.html.twig',[
+        return $this->render('pet/remove-pet.html.twig', [
             'pet' => $pet,
         ]);
     }
