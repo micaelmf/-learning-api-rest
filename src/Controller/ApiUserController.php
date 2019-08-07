@@ -17,11 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiUserController extends AbstractController
 {
-    public function index()
-    {
-        return new JsonResponse(['status' => 'ok']);
-    }
-
     public function list()
     {
         $users = $this->getDoctrine()->getRepository('App\Entity\User')
@@ -36,8 +31,11 @@ class ApiUserController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function show(User $user)
+    public function show(User $id)
     {
+        $user = $this->getDoctrine()->getRepository('App\Entity\User')
+            ->find($id);
+        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
@@ -55,58 +53,52 @@ class ApiUserController extends AbstractController
         $address->setCity($request->get('city'));
         
         $user = new User();
-        $user->setUserName($request->get('userName'));
+        $user->setUserName($request->get('name'));
         $user->setEmail($request->get('email'));
         $user->setAddress($address);
         
         $form = $this->createForm(UserType::class, $user);
+        $form->submit($user);
         
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
         
-        return new JsonResponse(['msg' => 'User created whit success!'], Response::HTTP_OK);
+        $response = new JsonResponse(['msg'=>'User created whit success!'], Response::HTTP_CREATED);
+        
+        return $response;
     }
     
-    public function edit(Request $request, $user)
+    public function edit(Request $request, User $user)
     {
-        if (empty($user)) {
-            return new JsonResponse(['msg' => 'User not found!'], Response::HTTP_NOT_FOUND);
-        }
-        
         $address = $user->getAddress();
         $address->setStreet($request->get('street'));
         $address->setNumber($request->get('number'));
         $address->setCity($request->get('city'));
         
-        $user->setUserName($request->get('userName'));
+        $user->setUserName($request->get('name'));
         $user->setEmail($request->get('email'));
         $user->setAddress($address);
 
-        if (!empty($user->getUserName())) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
-
-            return new JsonResponse(['msg' => 'User edited whit success!'], Response::HTTP_OK);
-        }
-
-        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
+        $form = $this->createForm(UserType::class, $user);
+        $form->submit($user);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        
+        $response = new JsonResponse(['msg'=>'User edited whit success!'], Response::HTTP_OK);
+        
+        return $response;
     }
 
-    public function delete($user)
+    public function delete(User $user)
     {
-        if (empty($user)) {
-            return new JsonResponse(['msg' => 'User not found!'], Response::HTTP_NOT_FOUND);
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $response = new JsonResponse(['msg'=>'User deleted whit success!'], Response::HTTP_OK);
         
-        if (!empty($user)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-
-            return new JsonResponse(['msg' => 'User deleted whit success!'], Response::HTTP_OK);
-        }
-
-        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_NOT_ACCEPTABLE);
+        return $response;
     }
 }

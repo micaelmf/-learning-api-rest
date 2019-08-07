@@ -17,15 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiClinicController extends AbstractController
 {
-    public function index()
-    {
-        return new JsonResponse(['status' => 'ok']);
-    }
-
     public function list()
     {
-        $clinics = $this->getDoctrine()
-            ->getRepository('App\Entity\Clinic')
+        $clinics = $this->getDoctrine()->getRepository('App\Entity\Clinic')
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -33,25 +27,25 @@ class ApiClinicController extends AbstractController
        
         $serializer = new Serializer($normalizers, $encoders);
         $jsonContent = $serializer->serialize($clinics, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
+            'ignored_attributes' => ['veterinaries']
         ]);
 
         return new Response($jsonContent);
     }
 
-    public function show(Clinic $clinic)
+    public function show(Clinic $id)
     {
+        $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')
+            ->find($id);
+        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($clinic, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
+        $jsonContent = $serializer->serialize($clinics, 'json', [
+            'ignored_attributes' => ['veterinaries']
         ]);
+        
         return new Response($jsonContent);
     }
 
@@ -65,20 +59,21 @@ class ApiClinicController extends AbstractController
         $clinic = new Clinic();
         $clinic->setName($request->get('name'));
         $clinic->setAddress($address);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($clinic);
-        $entityManager->flush();
         
-        return new JsonResponse(['msg' => 'Clinic created whit success!'], Response::HTTP_OK);
+        $form = $this->createForm(ClinicType::class, $clinic);
+        $form->submit($clinic);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($clinic);
+        $em->flush();
+        
+        $response = new JsonResponse(['msg'=>'Clinic created whit success!'], Response::HTTP_CREATED);
+        
+        return $response;
     }
     
-    public function edit(Request $request, $clinic)
+    public function edit(Request $request, Clinic $clinic)
     {
-        if (empty($clinic)) {
-            return new JsonResponse(['msg' => 'Clinic not found!'], Response::HTTP_NOT_FOUND);
-        }
-        
         $address = $clinic->getAddress();
         $address->setStreet($request->get('street'));
         $address->setNumber($request->get('number'));
@@ -87,30 +82,25 @@ class ApiClinicController extends AbstractController
         $clinic->setName($request->get('name'));
         $clinic->setAddress($address);
 
-        if (!empty($clinic->getName())) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
-
-            return new JsonResponse(['msg' => 'Clinic edited whit success!'], Response::HTTP_OK);
-        }
-
-        return new JsonResponse(['msg' => 'Check the empty fields'], Response::HTTP_NOT_ACCEPTABLE);
+        $form = $this->createForm(ClinicType::class, $clinic);
+        $form->submit($clinic);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        
+        $response = new JsonResponse(['msg'=>'Clinic edited whit success!'], Response::HTTP_OK);
+        
+        return $response;
     }
 
-    public function delete($clinic)
+    public function delete(Clinic $clinic)
     {
-        if (empty($clinic)) {
-            return new JsonResponse(['msg' => 'Clinic not found!'], Response::HTTP_NOT_FOUND);
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($clinic);
+        $entityManager->flush();
+
+        $response = new JsonResponse(['msg'=>'Clinic deleted whit success!'], Response::HTTP_OK);
         
-        if (!empty($clinic)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($clinic);
-            $entityManager->flush();
-
-            return new JsonResponse(['msg' => 'Clinic deleted whit success!'], Response::HTTP_OK);
-        }
-
-        return new JsonResponse(['msg' => 'We could not find'], Response::HTTP_NOT_ACCEPTABLE);
+        return $response;
     }
 }
