@@ -19,7 +19,7 @@ class ApiClinicController extends AbstractController
 {
     public function list()
     {
-        $clinics = $this->getDoctrine()->getRepository('App\Entity\Clinic')
+        $clinics = $this->getDoctrine()->getRepository(Clinic::class)
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -33,16 +33,13 @@ class ApiClinicController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function show(Clinic $id)
+    public function show(Clinic $clinic)
     {
-        $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')
-            ->find($id);
-        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($clinics, 'json', [
+        $jsonContent = $serializer->serialize($clinic, 'json', [
             'ignored_attributes' => ['veterinaries']
         ]);
         
@@ -63,9 +60,9 @@ class ApiClinicController extends AbstractController
         $form = $this->createForm(ClinicType::class, $clinic);
         $form->submit($clinic);
         
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($clinic);
-        $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($clinic);
+        $entityManager->flush();
         
         $response = new JsonResponse(['msg'=>'Clinic created whit success!'], Response::HTTP_CREATED);
         
@@ -85,8 +82,8 @@ class ApiClinicController extends AbstractController
         $form = $this->createForm(ClinicType::class, $clinic);
         $form->submit($clinic);
         
-        $em = $this->getDoctrine()->getManager();
-        $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
         
         $response = new JsonResponse(['msg'=>'Clinic edited whit success!'], Response::HTTP_OK);
         

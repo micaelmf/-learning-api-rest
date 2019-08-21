@@ -21,7 +21,7 @@ class ApiVeterinaryController extends AbstractController
     public function list()
     {
         $veterinaries = $this->getDoctrine()
-            ->getRepository('App\Entity\Veterinary')
+            ->getRepository(Veterinary::class)
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -35,12 +35,8 @@ class ApiVeterinaryController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function show(Veterinary $id)
+    public function show(Veterinary $veterinary)
     {
-        $veterinary = $this->getDoctrine()
-            ->getRepository('App\Entity\Veterinary')
-            ->find($id);
-        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
@@ -71,9 +67,9 @@ class ApiVeterinaryController extends AbstractController
         $form = $this->createForm(VeterinaryType::class, $veterinary);
         $form->submit($veterinary);
         
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($veterinary);
-        $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($veterinary);
+        $entityManager->flush();
         
         $response = new JsonResponse(['msg'=>'Veterinary created whit success!'], Response::HTTP_CREATED);
         
@@ -98,8 +94,8 @@ class ApiVeterinaryController extends AbstractController
         $form = $this->createForm(VeterinaryType::class, $veterinary);
         $form->submit($veterinary);
         
-        $em = $this->getDoctrine()->getManager();
-        $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
         
         $response = new JsonResponse(['msg'=>'Veterinary edited whit success!'], Response::HTTP_OK);
         

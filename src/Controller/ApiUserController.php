@@ -19,7 +19,7 @@ class ApiUserController extends AbstractController
 {
     public function list()
     {
-        $users = $this->getDoctrine()->getRepository('App\Entity\User')
+        $users = $this->getDoctrine()->getRepository(User::class)
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -31,11 +31,8 @@ class ApiUserController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function show(User $id)
+    public function show(User $user)
     {
-        $user = $this->getDoctrine()->getRepository('App\Entity\User')
-            ->find($id);
-        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
@@ -60,9 +57,9 @@ class ApiUserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->submit($user);
         
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
         
         $response = new JsonResponse(['msg'=>'User created whit success!'], Response::HTTP_CREATED);
         
@@ -83,8 +80,8 @@ class ApiUserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->submit($user);
         
-        $em = $this->getDoctrine()->getManager();
-        $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
         
         $response = new JsonResponse(['msg'=>'User edited whit success!'], Response::HTTP_OK);
         

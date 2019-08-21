@@ -19,7 +19,7 @@ class ApiPetController extends AbstractController
 {
     public function list()
     {
-        $pets = $this->getDoctrine()->getRepository('App\Entity\Pet')
+        $pets = $this->getDoctrine()->getRepository(Pet::class)
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -33,11 +33,8 @@ class ApiPetController extends AbstractController
         return new Response($jsonContent);
     }
 
-    public function show(Pet $id)
+    public function show(Pet $pet)
     {
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
-            ->find($id);
-        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
@@ -67,9 +64,8 @@ class ApiPetController extends AbstractController
         return $response;
     }
     
-    public function edit(Request $request, Pet $id)
+    public function edit(Request $request, Pet $pet)
     {
-        
         // reference: https://symfonycasts.com/screencast/symfony-rest/form-post
         $data = json_decode($request->getContent(), true);
         
@@ -86,10 +82,10 @@ class ApiPetController extends AbstractController
         return $response;
     }
 
-    public function delete($id)
+    public function delete(Pet $pet)
     {
-        $pet = $this->getDoctrine()->getRepository('App\Entity\Pet')
-            ->find($id);
+        $pet = $this->getDoctrine()->getRepository(Pet::class)
+            ->find($pet);
         
         if (empty($pet)) {
             return new JsonResponse(['msg' => 'Pet not found!'], Response::HTTP_NOT_FOUND);
