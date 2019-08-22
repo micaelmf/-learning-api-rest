@@ -110,35 +110,35 @@ pet_remove:
 
 api_users_list:
     path: api/v1/users
-    controller: App\Controller\ApiUserController::list
+    controller: App\Controller\Api\UserController::list
     defaults:
         _format: json
     methods: GET
 
 api_users_show:
     path: api/v1/users/{id}
-    controller: App\Controller\ApiUserController::show
+    controller: App\Controller\Api\UserController::show
     defaults:
         _format: json
     methods: GET
 
 api_users_new:
     path: api/v1/users
-    controller: App\Controller\ApiUserController:new
+    controller: App\Controller\Api\UserController:new
     defaults:
         _format: json
     methods: POST
 
 api_users_edit:
     path: api/v1/users/{id}
-    controller: App\Controller\ApiUserController::edit
+    controller: App\Controller\Api\UserController::edit
     defaults:
         _format: json
     methods: PUT
 
 api_users_delete:
     path: api/v1/users/{id}
-    controller: App\Controller\ApiUserController::delete
+    controller: App\Controller\Api\UserController::delete
     defaults:
         _format: json
     methods: DELETE
@@ -149,49 +149,42 @@ api_users_delete:
 
 api_clinics_list:
     path: api/v1/clinics
-    controller: App\Controller\ApiClinicController::list
+    controller: App\Controller\Api\ClinicController::list
     defaults:
         _format: json
     methods: GET
 
 api_clinics_show:
     path: api/v1/clinics/{id}
-    controller: App\Controller\ApiClinicController::show
+    controller: App\Controller\Api\ClinicController::show
     defaults:
         _format: json
     methods: GET
 
-# api_clinics_show_veterinaries:
-#     path: api/v1/clinics/{id}/veterinaries
-#     controller: App\Controller\ApiClinicController::showVeterinariesOfClinic
-#     defaults:
-#         _format: json
-#     methods: GET
-
 api_clinics_show_veterinaries:
     path: api/v1/clinics/{id}/addresses
-    controller: App\Controller\ApiClinicController::showAddress
+    controller: App\Controller\Api\ClinicController::showAddress
     defaults:
         _format: json
     methods: GET
 
 api_clinics_new:
     path: api/v1/clinics
-    controller: App\Controller\ApiClinicController:new
+    controller: App\Controller\Api\ClinicController:new
     defaults:
         _format: json
     methods: POST
 
 api_clinics_edit:
     path: api/v1/clinics/{id}
-    controller: App\Controller\ApiClinicController::edit
+    controller: App\Controller\Api\ClinicController::edit
     defaults:
         _format: json
     methods: PUT
 
 api_clinics_delete:
     path: api/v1/clinics/{id}
-    controller: App\Controller\ApiClinicController::delete
+    controller: App\Controller\Api\ClinicController::delete
     defaults:
         _format: json
     methods: DELETE
@@ -202,42 +195,42 @@ api_clinics_delete:
 
 api_veterinaries_list:
     path: api/v1/veterinaries
-    controller: App\Controller\ApiVeterinaryController::list
+    controller: App\Controller\Api\VeterinaryController::list
     defaults:
         _format: json
     methods: GET
 
 api_veterinaries_show:
     path: api/v1/veterinaries/{id}
-    controller: App\Controller\ApiVeterinaryController::show
+    controller: App\Controller\Api\VeterinaryController::show
     defaults:
         _format: json
     methods: GET
 
 api_veterinaries_show_address:
     path: api/v1/veterinaries/{id}/addresses
-    controller: App\Controller\ApiVeterinaryController::showAddress
+    controller: App\Controller\Api\VeterinaryController::showAddress
     defaults:
         _format: json
     methods: GET
 
 api_veterinaries_new:
     path: api/v1/veterinaries
-    controller: App\Controller\ApiVeterinaryController:new
+    controller: App\Controller\Api\VeterinaryController:new
     defaults:
         _format: json
     methods: POST
 
 api_veterinaries_edit:
     path: api/v1/veterinaries/{id}
-    controller: App\Controller\ApiVeterinaryController::edit
+    controller: App\Controller\Api\VeterinaryController::edit
     defaults:
         _format: json
     methods: PUT
 
 api_veterinaries_delete:
     path: api/v1/veterinaries/{id}
-    controller: App\Controller\ApiVeterinaryController::delete
+    controller: App\Controller\Api\VeterinaryController::delete
     defaults:
         _format: json
     methods: DELETE
@@ -248,49 +241,49 @@ api_veterinaries_delete:
 
 api_pets_list:
     path: api/v1/pets
-    controller: App\Controller\ApiPetController::list
+    controller: App\Controller\Api\PetController::list
     defaults:
         _format: json
     methods: GET
 
 api_pets_show:
     path: api/v1/pets/{id}
-    controller: App\Controller\ApiPetController::show
+    controller: App\Controller\Api\PetController::show
     defaults:
         _format: json
     methods: GET
 
 api_pets_show_owner:
     path: api/v1/pets/{id}/owners
-    controller: App\Controller\ApiPetController::showOwner
+    controller: App\Controller\Api\PetController::showOwner
     defaults:
         _format: json
     methods: GET
 
 api_pets_show_owner_address:
     path: api/v1/pets/{id}/owners/addresses
-    controller: App\Controller\ApiPetController::showOwnerAddress
+    controller: App\Controller\Api\PetController::showOwnerAddress
     defaults:
         _format: json
     methods: GET
 
 api_pets_new:
     path: api/v1/pets
-    controller: App\Controller\ApiPetController:new
+    controller: App\Controller\Api\PetController:new
     defaults:
         _format: json
     methods: POST
 
 api_pets_edit:
     path: api/v1/pets/{id}
-    controller: App\Controller\ApiPetController::edit
+    controller: App\Controller\Api\PetController::edit
     defaults:
         _format: json
     methods: PUT
 
 api_pets_delete:
     path: api/v1/pets/{id}
-    controller: App\Controller\ApiPetController::delete
+    controller: App\Controller\Api\PetController::delete
     defaults:
         _format: json
     methods: DELETE
