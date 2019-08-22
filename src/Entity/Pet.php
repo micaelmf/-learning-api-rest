@@ -68,7 +68,7 @@ class Pet
     {
         return $this->dateBirth;
     }
-
+    
     public function setDateBirth(\DateTimeInterface $dateBirth): self
     {
         $this->dateBirth = $dateBirth;
