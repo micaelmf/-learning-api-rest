@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiUserController extends AbstractController
+class UserController extends AbstractController
 {
     public function list()
     {

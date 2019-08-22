@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Veterinary;
 use App\Entity\Clinic;
 use App\Entity\Address;
-use App\Form\ClinicType;
+use App\Form\VeterinaryType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,34 +16,35 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiClinicController extends AbstractController
+class VeterinaryController extends AbstractController
 {
     public function list()
     {
-        $clinics = $this->getDoctrine()->getRepository(Clinic::class)
+        $veterinaries = $this->getDoctrine()
+            ->getRepository(Veterinary::class)
             ->findAll();
         
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($clinics, 'json', [
-            'ignored_attributes' => ['veterinaries']
+        $jsonContent = $serializer->serialize($veterinaries, 'json', [
+            'ignored_attributes' => ['clinic']
         ]);
 
         return new Response($jsonContent);
     }
 
-    public function show(Clinic $clinic)
+    public function show(Veterinary $veterinary)
     {
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
        
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($clinic, 'json', [
-            'ignored_attributes' => ['veterinaries']
+        $jsonContent = $serializer->serialize($veterinary, 'json', [
+            'ignored_attributes' => ['clinic']
         ]);
-        
+
         return new Response($jsonContent);
     }
 
@@ -53,50 +55,60 @@ class ApiClinicController extends AbstractController
         $address->setNumber($request->get('number'));
         $address->setCity($request->get('city'));
         
-        $clinic = new Clinic();
-        $clinic->setName($request->get('name'));
-        $clinic->setAddress($address);
+        $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')
+            ->find($request->get('clinic'));
+
+        $veterinary = new Veterinary();
+        $veterinary->setName($request->get('name'));
+        $veterinary->setCrmv($request->get('crmv'));
+        $veterinary->setAddress($address);
+        $veterinary->addClinic($clinic);
         
-        $form = $this->createForm(ClinicType::class, $clinic);
-        $form->submit($clinic);
+        $form = $this->createForm(VeterinaryType::class, $veterinary);
+        $form->submit($veterinary);
         
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($clinic);
+        $entityManager->persist($veterinary);
         $entityManager->flush();
         
-        $response = new JsonResponse(['msg'=>'Clinic created whit success!'], Response::HTTP_CREATED);
+        $response = new JsonResponse(['msg'=>'Veterinary created whit success!'], Response::HTTP_CREATED);
         
         return $response;
     }
     
-    public function edit(Request $request, Clinic $clinic)
+    public function edit(Request $request, Veterinary $veterinary)
     {
-        $address = $clinic->getAddress();
+        $address = new Address();
         $address->setStreet($request->get('street'));
         $address->setNumber($request->get('number'));
         $address->setCity($request->get('city'));
         
-        $clinic->setName($request->get('name'));
-        $clinic->setAddress($address);
+        $clinic = $this->getDoctrine()->getRepository('App\Entity\Clinic')
+            ->find($request->get('clinic'));
 
-        $form = $this->createForm(ClinicType::class, $clinic);
-        $form->submit($clinic);
+        $veterinary->setName($request->get('name'));
+        $veterinary->setCrmv($request->get('crmv'));
+        $veterinary->setAddress($address);
+        $veterinary->addClinic($clinic);
+        
+        $form = $this->createForm(VeterinaryType::class, $veterinary);
+        $form->submit($veterinary);
         
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->flush();
         
-        $response = new JsonResponse(['msg'=>'Clinic edited whit success!'], Response::HTTP_OK);
+        $response = new JsonResponse(['msg'=>'Veterinary edited whit success!'], Response::HTTP_OK);
         
         return $response;
     }
 
-    public function delete(Clinic $clinic)
+    public function delete(Veterinary $veterinary)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($clinic);
+        $entityManager->remove($veterinary);
         $entityManager->flush();
 
-        $response = new JsonResponse(['msg'=>'Clinic deleted whit success!'], Response::HTTP_OK);
+        $response = new JsonResponse(['msg'=>'Veterinary deleted whit success!'], Response::HTTP_OK);
         
         return $response;
     }
